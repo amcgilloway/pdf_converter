@@ -1,0 +1,21 @@
+{
+  "name": "pdf_converter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "github-markdown-css": "^3.0.1",
+    "markdown-pdf": "^9.0.0",
+    "remarkable-classy": "0.0.1",
+    "replace-in-file": "^3.4.3",
+    "through2": "^3.0.0",
+    "walk": "^2.3.14"
+  }
+}
