@@ -14,14 +14,17 @@ const options = {
   }
 }
 
-// Walker options
-const walker  = walk.walk('/Users/allymcgilloway/courses/course_java/week_1/day_1/intelliJ_and_git', { followLinks: false });
+// Change path to full path to local repo folder (e.g. /Users/username/course_java)
+const walker  = walk.walk('/Users/allymcgilloway/courses/course_javascript_v2/week_2', { followLinks: false });
 
 walker.on('file', (root, file, next) => {
   if (file.name.slice(-3) === '.md'){
     let pdfDoc = file.name.replace(".md", ".pdf");
     options.imagePath = root;
-    markdownpdf(options).from(root + "/" + file.name).to("./out/" + root + "/" + pdfDoc, function () {
+    let pathParts = root.split('/');
+    // Change course name as required
+    let basePath = pathParts.slice(pathParts.indexOf('course_javascript_v2')).join("/");
+    markdownpdf(options).from(root + "/" + file.name).to("./out/" + basePath + "/" + pdfDoc, function () {
   console.log("Created", pdfDoc);
 });
   }
