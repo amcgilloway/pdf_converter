@@ -15,7 +15,7 @@ const options = {
 }
 
 // Change path to full path to local repo folder (e.g. /Users/username/course_java)
-const walker  = walk.walk('/Users/allymcgilloway/courses/course_javascript_v2/week_2', { followLinks: false });
+const walker  = walk.walk('/Users/allymcgilloway/courses/course_java/week_1/day_1', { followLinks: false });
 
 walker.on('file', (root, file, next) => {
   if (file.name.slice(-3) === '.md'){
@@ -23,7 +23,7 @@ walker.on('file', (root, file, next) => {
     options.imagePath = root;
     let pathParts = root.split('/');
     // Change course name as required
-    let basePath = pathParts.slice(pathParts.indexOf('course_javascript_v2')).join("/");
+    let basePath = pathParts.slice(pathParts.indexOf('course_java')).join("/");
     markdownpdf(options).from(root + "/" + file.name).to("./out/" + basePath + "/" + pdfDoc, function () {
   console.log("Created", pdfDoc);
 });
