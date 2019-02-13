@@ -1,9 +1,13 @@
 const markdownpdf = require("markdown-pdf")
 const fs = require("fs")
 const walk = require('walk');
-const files = [];
-let basePath = '';
+const mv = require('mv');
 
+// Change path to full path to local repo folder (e.g. /Users/username/course_java)
+const input_path = '/Users/allymcgilloway/courses/course_intro_to_programming';
+
+// Change to name of module as appears on Github
+const module_name = 'course_intro_to_programming';
 const options = {
   cssPath: "./css/github.css",
   remarkable: {
@@ -14,19 +18,25 @@ const options = {
   }
 }
 
-// Change path to full path to local repo folder (e.g. /Users/username/course_java)
-const walker  = walk.walk('/Users/allymcgilloway/courses/course_java/week_1/day_1', { followLinks: false });
+
+const walker  = walk.walk(input_path, { followLinks: false });
 
 walker.on('file', (root, file, next) => {
+  let pathParts = root.split('/');
+  let basePath = pathParts.slice(pathParts.indexOf(module_name)).join("/");
   if (file.name.slice(-3) === '.md'){
     let pdfDoc = file.name.replace(".md", ".pdf");
     options.imagePath = root;
-    let pathParts = root.split('/');
-    // Change course name as required
-    let basePath = pathParts.slice(pathParts.indexOf('course_java')).join("/");
-    markdownpdf(options).from(root + "/" + file.name).to("./out/" + basePath + "/" + pdfDoc, function () {
-  console.log("Created", pdfDoc);
-});
+    markdownpdf(options).from(root + `/${file.name}`).to(`./out/${basePath}/${pdfDoc}`, function () {
+      console.log("Created", pdfDoc);
+    });
+  } else {
+
+    fs.copyFile(root + `/${file.name}`, `./out/${basePath}/${file.name}`, (err) => {
+      if (err){
+        console.log("Error", err);
+      }
+    })
   }
   next();
 });
