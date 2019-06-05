@@ -17,6 +17,7 @@
     "remarkable-classy": "0.0.1",
     "replace-in-file": "^3.4.3",
     "through2": "^3.0.0",
-    "walk": "^2.3.14"
+    "walk": "^2.3.14",
+    "zip-a-folder": "0.0.7"
   }
 }
